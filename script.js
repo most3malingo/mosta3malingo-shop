@@ -464,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- Mobile Admin Trigger ---
-    const mobileTrigger = document.getElementById('adminTrigger');
+    const mobileTrigger = document.getElementById('footerDate');
     let tapCount = 0;
     let tapTimer = null;
 
@@ -530,4 +530,5 @@ window.openPriceModal = (id) => {
             }
         }
     });
+
 };
