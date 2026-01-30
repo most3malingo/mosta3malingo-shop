@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="keywords" content="مستعملينجو, ادوات مستعمله ,سوق الجمعه">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosta3malingo - Shop Now</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <div class="countdown-banner">
+        <div class="container">
+            <span class="countdown-text">⏰ Offer ends in: </span>
+            <span class="countdown-timer" id="countdownTimer">Loading...</span>
+        </div>
+    </div>
+
+    <!-- <header class="header">
+        <div class="container">
+            <div class="logo"> 
+                <img src="WhatsApp Image 2026-01-30 at 2.56.31 PM.jpeg"alt="Logo">
+            </div> -->
+        
+            
+            <!-- <h1 class="logo">Mosta3malingo</h1> -->
+            <nav class="nav">
+                <a href="#products">Products</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-layout">
+            
+            <div class="hero-image">
+                <img src="WhatsApp Image 2026-01-30 at 2.56.31 PM.jpeg" alt="شعار سوق الجمعة"> 
+            </div>
+
+            <div class="hero-text">
+                <h2>سوق الجمعة أون لاين</h2>
+                <p>متدفعش أرقام خيالية في الجديد.. القديم سدّاد وشيك</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="products-section" id="products">
+        <div class="container">
+            <h2 class="section-title">المنتجات المتوفرة</h2>
+            <div class="products-grid" id="productsGrid">
+                <p style="text-align:center;">Loading products from cloud...</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Winners</h2>
+            
+            <div id="contactAccessMsg" style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px; margin-bottom: 20px;">
+                <p style="font-size: 1.2rem; color: #666;">
+                    🔒 نموذج التواصل مغلق حالياً.<br>
+                    سيتم فتحه <b>للفائزين فقط</b> عند انتهاء الوقت.
+                </p>
+            </div>
+
+            <form class="contact-form" id="contactForm" style="display: none;">
+                <div class="winner-alert" style="background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+                    🎉 <b>مبروك!</b> بما أنك فزت في المزاد، يمكنك الآن إرسال رسالة لنا لتأكيد الاستلام.
+                </div>
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="contactName" required readonly style="background: #e9ecef;">
+                </div>
+                <div class="form-group">
+                    <label>Email / Phone</label>
+                    <input type="text" id="contactEmail" required placeholder="رقم تليفونك أو إيميلك">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="contactMessage" rows="5" required placeholder="اكتب تفاصيل عنوانك أو ميعاد الاستلام المناسب..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+            
+            <div class="form-message" id="formMessage"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; Mosta3malingo. All rights reserved.</p>
+            <p id="adminTrigger" style="margin-top: 10px; opacity: 0.3; font-size: 0.8rem; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">2026</p>
+        </div>
+    </footer>
+
+    <div class="modal" id="priceModal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <h3>Make Your Offer</h3>
+            <p id="modalProductName"></p>
+            <p>Current Price: <span id="modalCurrentPrice"></span> EGP</p>
+            <form id="priceOfferForm">
+                <input type="text" id="bidderName" required placeholder="اكتب اسمك (مطلوب)" style="margin-bottom: 10px; width: 100%; padding: 8px;">
+                
+                <input type="number" id="newPrice" min="1" step="0.01" required placeholder="السعر الجديد">
+                
+                <button type="submit" class="btn btn-primary" style="margin-top:10px;">تأكيد العرض</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-content">
+            <span class="admin-close" id="adminClose">&times;</span>
+            <h2>Admin Panel</h2>
+            
+            <div id="adminLogin">
+                <form id="adminLoginForm">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="adminEmail" required placeholder="admin@shop.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="adminPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <div class="admin-error" id="loginError"></div>
+                </form>
+            </div>
+
+            <div id="adminDashboard" style="display: none;">
+                <div class="admin-card">
+                    <h3>Timer Control</h3>
+                    <form id="timerControlForm">
+                        <input type="number" id="timerHours" placeholder="Hours" value="24">
+                        <input type="number" id="timerMinutes" placeholder="Minutes" value="0">
+                        <button type="submit" class="btn btn-primary">Reset Timer</button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Add Product</h3>
+                    <form id="addProductForm">
+                        <input type="text" id="productName" placeholder="Name" required>
+                        <textarea id="productDescription" placeholder="Description" required></textarea>
+                        <input type="number" id="productPrice" placeholder="Price" required>
+                        <input type="text" id="productImage" placeholder="Image URL">
+                        <input type="file" id="productImageFile" accept="image/*" style="margin-top:5px;">
+                        <button type="submit" class="btn btn-primary" style="margin-top:10px;">Add</button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Manage Products</h3>
+                    <div id="adminProductsList"></div>
+                </div>
+                <button class="btn btn-danger" id="adminLogout">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
