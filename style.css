@@ -1,4 +1,4 @@
-﻿/* ===========================
+/* ===========================
    Global Styles & Reset
    =========================== */
 * {
@@ -81,7 +81,7 @@ body {
 .hero-text h2 {
     font-size: 2.5rem;         /* تكبير العنوان */
     margin-bottom: 10px;
-    color: #ffffff;            /* لون غامق شيك */
+    color: #ffffff;          
 }
 
 .hero-text p {
@@ -112,10 +112,7 @@ body {
     100% { transform: translateY(0px); }
 }
 
-/* =========================================
-   مهم جداً للموبايل (Responsive) 📱
-   عشان لما تفتح من تليفون يجوا تحت بعض مش جنب بعض
-   ========================================= */
+
 @media (max-width: 768px) {
     .hero-layout {
         flex-direction: column-reverse; /* يعكس الترتيب (الصورة فوق والكلام تحت) */
@@ -601,9 +598,15 @@ body {
         flex-direction: column;
         gap: 15px;
     }
+    
 
     .hero h2 {
         font-size: 2rem;
+    }
+    .product-image {
+        width: 100%;
+        height: 190px !important; /* 👈 غير الرقم ده عشان تطول أو تقصر الكارت */
+        object-fit: cover;
     }
 
     .products-grid {
@@ -618,6 +621,13 @@ body {
     .admin-content {
         margin: 20px;
         padding: 20px;
+    }
+    .product-info h3, 
+    .product-info p {
+        white-space: normal !important; /* يسمح للنص ينزل سطر جديد */
+        overflow-wrap: break-word !important; /* يكسر الكلمة لو طويلة أوي وتعدت العرض */
+        word-wrap: break-word !important; /* نفس الوظيفة للمتصفحات القديمة */
+        max-width: 100%; /* يتأكد إن النص واخد عرض الكارت بس */
     }
 }
 
@@ -786,4 +796,55 @@ body {
 @keyframes pop-in {
     0% { transform: scale(0.8); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
+}
+/* تنسيق النافذة المنبثقة */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.hidden { display: none !important; }
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.main-btn {
+  background: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.close-btn {
+  background: #dc3545;
+  color: white;
+  margin-top: 10px;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
