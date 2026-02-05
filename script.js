@@ -48,7 +48,6 @@ function formatCurrency(amount) {
     });
 }
 
-
 window.finalizeBid = function(newPrice, bidderName, userId = null) {
     if(!AppState.currentProductId) return;
 
@@ -82,7 +81,7 @@ window.finalizeBid = function(newPrice, bidderName, userId = null) {
 
         // ب) إرسال أمر الإيقاف للسيرفر (بتوقيت ماضي)
         db.collection("settings").doc("timer").set({ 
-            endTime: pastTime,
+            endTime: pastTime, // 👈 السر هنا
             endMessage: "تم بيع المنتج بالسعر النهائي! 🎉"
         }, { merge: true });
 
@@ -161,7 +160,7 @@ function setupFirebaseListeners() {
         if (doc.exists) {
             const data = doc.data();
             AppState.countdownEndTime = data.endTime;
-            //  تحديث الرسالة من الداتابيز
+            // 👈 تحديث الرسالة من الداتابيز
             if(data.endMessage) AppState.endMessage = data.endMessage;
             
             // تحديث خانة الرسالة في الأدمن عشان يشوف هو كاتب إيه
@@ -182,7 +181,7 @@ function updatePrice(id, price, name) {
     }).catch(e => alert("Error updating price: " + e.message));
 }
 
-// 🔥 دالة ضبط التايمر (بتقبل رسالة دلوقتي)
+//  دالة ضبط التايمر 
 function resetTimer(h, m, msg) {
     const ms = (h * 3600000) + (m * 60000);
     const endTime = Date.now() + ms;
@@ -354,9 +353,9 @@ function updateTimerUI() {
     if(!AppState.countdownEndTime) return;
     const diff = AppState.countdownEndTime - Date.now();
     
-    //  هنا التعديل: إظهار الرسالة المخصصة لما الوقت يخلص 
+
     if(diff <= 0) {
-        document.getElementById('countdownTimer').innerText = AppState.endMessage;
+        document.getElementById('countdownTimer').innerText = AppState.endMessage; 
         if (!auctionEndedTriggered) {
             auctionEndedTriggered = true;
             renderProducts(); 
@@ -467,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const h = document.getElementById('timerHours').value;
         const m = document.getElementById('timerMinutes').value;
-        const msg = document.getElementById('timerEndMessage').value; // بناخد الرسالة من الخانة
+        const msg = document.getElementById('timerEndMessage').value; //  بناخد الرسالة من الخانة
         resetTimer(h, m, msg);
     };
 
@@ -552,5 +551,4 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 });
 
-};
 
