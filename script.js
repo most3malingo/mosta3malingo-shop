@@ -491,68 +491,48 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const newPriceInput = document.getElementById('newPrice');
         const bidderNameInput = document.getElementById('bidderName');
-
+    
+        // 1. التحقق من وجود البيانات
         if (!newPriceInput || !bidderNameInput) return alert("البيانات ناقصة!");
-
+        if (!newPriceInput.value || !bidderNameInput.value) return alert("من فضلك اكتب الاسم والسعر");
+    
         const newPrice = parseFloat(newPriceInput.value);
         const bidderName = bidderNameInput.value;
         
         const currentProduct = AppState.products.find(p => p.id === AppState.currentProductId);
         if (!currentProduct) return alert("المنتج غير موجود!");
-
+    
+        // 2. التحقق هل المنتج مباع
         if (currentProduct.isSold) {
             alert("هذا المنتج تم بيعه بالفعل! 🏁");
             document.getElementById('priceModal').style.display = 'none';
             return;
         }
-
+    
         if (AppState.adminLoggedIn) {
             finalizeBid(newPrice, bidderName);
             return;
         }
-
+    
+        // 4. التحقق أن السعر أعلى من الحالي
         if (newPrice <= currentProduct.price) {
             alert(`لازم السعر يكون أعلى من (${currentProduct.price} EGP)`);
             return;
         }
-
+    
+        // 5. التحقق من الحد الأقصى للزيادة (100 جنيه)
         const increaseDiff = newPrice - currentProduct.price;
         if (increaseDiff > 100) {
             alert(`⛔ ممنوع تزود أكتر من 100 جنيه في المرة الواحدة!\nالحد الأقصى المسموح لك هو: ${currentProduct.price + 100} EGP`);
             return;
         }
-
-        const user = auth.currentUser;
-        if (user) {
-            db.collection("users").doc(user.uid).get().then((docSnap) => {
-                const userData = docSnap.data();
-
-                if (!userData || !userData.phoneNumber) {
-                    triggerPhoneVerification(newPrice, bidderName);
-                    return;
-                }
-
-                const lastBidTime = userData.lastBidTime || 0;
-                const timeNow = Date.now();
-                const diffMinutes = (timeNow - lastBidTime) / 1000 / 60; 
-
-                if (diffMinutes < 10) { 
-                    const waitTime = Math.ceil(10 - diffMinutes);
-                    alert(`⏳ انتظر شوية!\nلازم تستنى ${waitTime} دقيقة قبل ما تقدر تزايد تاني.`);
-                    return;
-                }
-
-                finalizeBid(newPrice, bidderName, user.uid);
-
-            }).catch(err => {
-                console.error(err);
-                triggerPhoneVerification(newPrice, bidderName);
-            });
-        } else {
-            triggerPhoneVerification(newPrice, bidderName);
-        }
+    
+        const user = auth.currentUser; 
+        const userId = user ? user.uid : null;
+    
+        // تنفيذ المزايدة مباشرة
+        finalizeBid(newPrice, bidderName, userId);
     };
-});
 
 
 
