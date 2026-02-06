@@ -167,7 +167,7 @@ function setupFirebaseListeners() {
             const msgInput = document.getElementById('timerEndMessage');
             if(msgInput && data.endMessage) msgInput.value = data.endMessage;
 
-            updateCountdown();
+            updateTimerUI();
         } else {
             resetTimer(24, 0, "انتهت المسابقة 🏁");
         }
@@ -550,5 +550,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 });
+
 
 
