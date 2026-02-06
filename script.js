@@ -52,16 +52,17 @@ function formatCurrency(amount) {
 window.finalizeBid = function(newPrice, bidderName, userId = null) {
     if(!AppState.currentProductId) return;
 
+
+    if(!AppState.adminLoggedIn) {
+        localStorage.setItem('lastUserBidTime', Date.now()); // 👈 حفظ الوقت الحالي
+        localStorage.setItem('savedBidderName', bidderName);
+    }
+
     // 1. تحديث المنتج محلياً فوراً
     const product = AppState.products.find(p => p.id === AppState.currentProductId);
     if(product) {
         product.price = parseFloat(newPrice);
         product.lastBidder = bidderName;
-    }
-
-    // 2. حفظ الاسم محلياً
-    if(!AppState.adminLoggedIn) {
-        localStorage.setItem('savedBidderName', bidderName);
     }
 
     // بيانات التحديث للداتابيز
@@ -84,7 +85,7 @@ window.finalizeBid = function(newPrice, bidderName, userId = null) {
 
         // ب) إرسال أمر الإيقاف للسيرفر (بتوقيت ماضي)
         db.collection("settings").doc("timer").set({ 
-            endTime: pastTime, // 👈 السر هنا
+            endTime: pastTime, 
             endMessage: "تم بيع المنتج بالسعر النهائي! 🎉"
         }, { merge: true });
 
@@ -496,6 +497,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!newPriceInput || !bidderNameInput) return alert("البيانات ناقصة!");
         if (!newPriceInput.value || !bidderNameInput.value) return alert("من فضلك اكتب الاسم والسعر");
     
+
+        if (!AppState.adminLoggedIn) { // الأدمن لا ينطبق عليه هذا الشرط
+            const lastBidTime = localStorage.getItem('lastUserBidTime'); // نجلب الوقت المحفوظ
+            if (lastBidTime) {
+                const timeDiff = Date.now() - parseInt(lastBidTime); // الفرق بين الوقت الحالي وآخر مرة
+                const tenMinutes = 10 * 60 * 1000; // 10 دقائق بالملي ثانية
+    
+                if (timeDiff < tenMinutes) {
+                    const remainingMinutes = Math.ceil((tenMinutes - timeDiff) / 60000);
+                    alert(`⏳ عذرًا، يجب عليك الانتظار ${remainingMinutes} دقيقة قبل المزايدة مرة أخرى.`);
+                    return; // إيقاف العملية
+                }
+            }
+        }
+ 
+    
         const newPrice = parseFloat(newPriceInput.value);
         const bidderName = bidderNameInput.value;
         
@@ -530,10 +547,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const user = auth.currentUser; 
         const userId = user ? user.uid : null;
     
-        // تنفيذ المزايدة مباشرة
+        // تنفيذ المزايدة
         finalizeBid(newPrice, bidderName, userId);
     };
 });
+
 
 
 
