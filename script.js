@@ -48,6 +48,7 @@ function formatCurrency(amount) {
     });
 }
 
+
 window.finalizeBid = function(newPrice, bidderName, userId = null) {
     if(!AppState.currentProductId) return;
 
@@ -76,6 +77,8 @@ window.finalizeBid = function(newPrice, bidderName, userId = null) {
         product.isSold = true;
         updateData.isSold = true; 
 
+        //  التعديل هنا: بنخلي وقت النهاية "فات من 10 ثواني" 
+        // ده بيضمن إن التايمر يموت فوراً وميرجعش يصحى تاني
         const pastTime = Date.now() - 10000; 
         AppState.countdownEndTime = pastTime; 
 
@@ -155,12 +158,12 @@ function setupFirebaseListeners() {
         }
     });
 
-    //  الاستماع لتحديثات الوقت والرسالة
+    // الاستماع لتحديثات الوقت والرسالة
     db.collection("settings").doc("timer").onSnapshot((doc) => {
         if (doc.exists) {
             const data = doc.data();
             AppState.countdownEndTime = data.endTime;
-            // 👈 تحديث الرسالة من الداتابيز
+            //  تحديث الرسالة من الداتابيز
             if(data.endMessage) AppState.endMessage = data.endMessage;
             
             // تحديث خانة الرسالة في الأدمن عشان يشوف هو كاتب إيه
@@ -181,7 +184,7 @@ function updatePrice(id, price, name) {
     }).catch(e => alert("Error updating price: " + e.message));
 }
 
-//  دالة ضبط التايمر 
+// دالة ضبط التايمر (بتقبل رسالة دلوقتي)
 function resetTimer(h, m, msg) {
     const ms = (h * 3600000) + (m * 60000);
     const endTime = Date.now() + ms;
@@ -353,9 +356,9 @@ function updateTimerUI() {
     if(!AppState.countdownEndTime) return;
     const diff = AppState.countdownEndTime - Date.now();
     
-
+    //  هنا التعديل: إظهار الرسالة المخصصة لما الوقت يخلص 
     if(diff <= 0) {
-        document.getElementById('countdownTimer').innerText = AppState.endMessage; 
+        document.getElementById('countdownTimer').innerText = AppState.endMessage; //  بيجيب النص من المتغير
         if (!auctionEndedTriggered) {
             auctionEndedTriggered = true;
             renderProducts(); 
@@ -461,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    //  زرار ضبط الوقت (والرسالة) 
+    //  زرار ضبط الوقت (والرسالة
     document.getElementById('timerControlForm').onsubmit = (e) => {
         e.preventDefault();
         const h = document.getElementById('timerHours').value;
@@ -550,6 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 });
+
 
 
 
