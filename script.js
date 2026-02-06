@@ -533,6 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // تنفيذ المزايدة مباشرة
         finalizeBid(newPrice, bidderName, userId);
     };
+});
 
 
 
