@@ -81,7 +81,7 @@ body {
 .hero-text h2 {
     font-size: 2.5rem;         /* تكبير العنوان */
     margin-bottom: 10px;
-    color: #ffffff;          
+    color: #ffffff;            /* لون غامق شيك */
 }
 
 .hero-text p {
@@ -112,7 +112,10 @@ body {
     100% { transform: translateY(0px); }
 }
 
-
+/* =========================================
+   مهم جداً للموبايل (Responsive) 📱
+   عشان لما تفتح من تليفون يجوا تحت بعض مش جنب بعض
+   ========================================= */
 @media (max-width: 768px) {
     .hero-layout {
         flex-direction: column-reverse; /* يعكس الترتيب (الصورة فوق والكلام تحت) */
@@ -227,11 +230,19 @@ body {
     color: var(--primary-color);
 }
 
-.product-description {
-    color: #666;
-    margin-bottom: 15px;
-    font-size: 0.95rem;
-    line-height: 1.5;
+.product-description, 
+.product-info p {
+    white-space: normal !important;      /* السماح بالنزول لسطر جديد */
+    overflow-wrap: break-word !important; /* كسر الكلمات الطويلة */
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    
+    overflow: visible !important;        /* إظهار الكلام المختفي */
+    text-overflow: clip !important;      /* إلغاء النقط (...) */
+    
+    height: auto !important;             /* السماح للنص ياخد راحته في الطول */
+    max-height: none !important;         /* إلغاء أي حد أقصى للطول */
+    margin-bottom: 15px !important;
 }
 
 .product-price {
@@ -604,9 +615,9 @@ body {
         font-size: 2rem;
     }
     .product-image {
-        width: 100%;
-        height: 190px !important; /* 👈 غير الرقم ده عشان تطول أو تقصر الكارت */
-        object-fit: cover;
+        height: 200px !important; /* طول ثابت للصورة */
+        object-fit: cover !important;
+        flex-shrink: 0; /* يمنع الصورة إنها تنكمش */
     }
 
     .products-grid {
@@ -848,3 +859,5 @@ input {
   border-radius: 5px;
   cursor: pointer;
 }
+
+
