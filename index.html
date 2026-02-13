@@ -9,24 +9,16 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
     (function(){
-        emailjs.init("SV8sPPhYQ6YxCOoVGB9yN"); // حط الـ Public Key بتاعك هنا
+        emailjs.init("SV8sPPhYQ6YxCOoVGB9yN");
     })();
     </script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3246385159373257"
      crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="countdown-banner">
-        <div class="container">
-            <span class="countdown-text">⏰ Offer ends in: </span>
-            <span class="countdown-timer" id="countdownTimer">Loading...</span>
-        </div>
-    </div>
-
     <header class="header">
         <div class="container">
             <nav class="nav">
@@ -62,33 +54,22 @@
 
     <section class="contact-section" id="contact">
         <div class="container">
-            <h2 class="section-title">Contact Winners</h2>
+            <h2 class="section-title">تواصل معنا</h2>
             
-            <div id="contactAccessMsg" style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px; margin-bottom: 20px;">
-                <p style="font-size: 1.2rem; color: #666;">
-                    🔒 نموذج التواصل مغلق حالياً.<br>
-                    سيتم فتحه <b>للفائزين فقط</b> عند انتهاء الوقت.
-                </p>
-            </div>
-
-            <form class="contact-form" id="contactForm" style="display: none;">
-                <div class="winner-alert" style="background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
-                    🎉 <b>مبروك!</b> بما أنك فزت في المزاد، يمكنك الآن إرسال رسالة لنا لتأكيد الاستلام.
-                </div>
-
+            <form class="contact-form" id="contactForm">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" id="contactName" required readonly style="background: #e9ecef;">
+                    <label>الاسم</label>
+                    <input type="text" id="contactName" required placeholder="اكتب اسمك">
                 </div>
                 <div class="form-group">
-                    <label>Email / Phone</label>
+                    <label>البريد الإلكتروني أو رقم الهاتف</label>
                     <input type="text" id="contactEmail" required placeholder="رقم تليفونك أو إيميلك">
                 </div>
                 <div class="form-group">
-                    <label>Message</label>
-                    <textarea id="contactMessage" rows="5" required placeholder="اكتب تفاصيل عنوانك أو ميعاد الاستلام المناسب..."></textarea>
+                    <label>الرسالة</label>
+                    <textarea id="contactMessage" rows="5" required placeholder="اكتب رسالتك هنا..."></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
+                <button type="submit" class="btn btn-primary">إرسال الرسالة</button>
             </form>
             
             <div class="form-message" id="formMessage"></div>
@@ -101,22 +82,6 @@
             <p id="footerDate" style="margin-top: 10px; opacity: 0.3; font-size: 0.8rem; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">2026</p>
         </div>
     </footer>
-
-    <div class="modal" id="priceModal">
-        <div class="modal-content">
-            <span class="modal-close" id="modalClose">&times;</span>
-            <h3>Make Your Offer</h3>
-            <p id="modalProductName"></p>
-            <p>Current Price: <span id="modalCurrentPrice"></span> EGP</p>
-            <form id="priceOfferForm">
-                <input type="text" id="bidderName" required placeholder="اكتب اسمك (مطلوب)" style="margin-bottom: 10px; width: 100%; padding: 8px;">
-                
-                <input type="number" id="newPrice" min="1" step="0.01" required placeholder="السعر الجديد">
-                
-                <button type="submit" class="btn btn-primary" style="margin-top:10px;">تأكيد العرض</button>
-            </form>
-        </div>
-    </div>
 
     <div class="admin-panel" id="adminPanel">
         <div class="admin-content">
@@ -140,29 +105,14 @@
 
             <div id="adminDashboard" style="display: none;">
                 <div class="admin-card">
-                    <h3>Timer Control</h3>
-                    <form id="timerControlForm">
-                        
-                        <input type="number" id="timerHours" placeholder="Hours" value="24">
-                        <input type="number" id="timerMinutes" placeholder="Minutes" value="0">
-                        <div class="form-group">
-                            <label>رسالة النهاية (ماذا يظهر عند انتهاء الوقت؟):</label>
-                            <input type="text" id="timerEndMessage" placeholder="مثال: انتظروا المسابقة القادمة 🔥" value="انتهت المسابقة 🏁">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Reset Timer</button>
-                    </form>
-                </div>
-
-                <div class="admin-card">
                     <h3>Add Product</h3>
                     <form id="addProductForm">
-                        <input type="text" id="productName" placeholder="Name" required>
-                        <textarea id="productDescription" placeholder="Description" required></textarea>
-                        <input type="number" id="productPrice" placeholder="Price" required>
-                        <input type="number" id="productMaxPrice" placeholder="سعر البيع الفوري (Auto-Win Price)" step="0.01">
-                        <input type="text" id="productImage" placeholder="Image URL">
+                        <input type="text" id="productName" placeholder="اسم المنتج" required>
+                        <textarea id="productDescription" placeholder="وصف المنتج" required></textarea>
+                        <input type="number" id="productPrice" placeholder="السعر" required step="0.01">
+                        <input type="text" id="productImage" placeholder="رابط الصورة">
                         <input type="file" id="productImageFile" accept="image/*" style="margin-top:5px;">
-                        <button type="submit" class="btn btn-primary" style="margin-top:10px;">Add</button>
+                        <button type="submit" class="btn btn-primary" style="margin-top:10px;">إضافة المنتج</button>
                     </form>
                 </div>
 
@@ -175,8 +125,7 @@
         </div>
     </div>
 
-    <script src="script.js?v=2"></script>
-</body>
+    <script src="script.js"></script>
 </body>
 </html>
 
