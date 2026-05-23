@@ -118,6 +118,261 @@ body {
 }
 
 /* ===========================
+   Premium Competition Section (ستايل الحماس الاحترافي النيون)
+   =========================== */
+.competition-section {
+    padding: 60px 0;
+    /* تدريج لوني يجمع بين أزرق الموقع والأسود */
+    background: linear-gradient(135deg, #1a252f 0%, #0a0f14 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* تأثير إضاءة خلفي خفي لزيادة الجمالية */
+.competition-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(52, 152, 219, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.comp-premium-box {
+    background: rgba(44, 62, 80, 0.4); 
+    border: 2px solid var(--secondary-color); 
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(52, 152, 219, 0.2);
+    max-width: 750px;
+    margin: 0 auto;
+    position: relative;
+    backdrop-filter: blur(15px);
+}
+
+.comp-header {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.comp-title {
+    color: #fff;
+    font-size: 2.6rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.comp-title span {
+    color: var(--warning-color); 
+    text-shadow: 0 0 15px rgba(243, 156, 18, 0.4);
+}
+
+.comp-desc {
+    color: #aeb9c2;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.glow-text {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.timer-premium {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--warning-color);
+    letter-spacing: 4px;
+    text-shadow: 0 0 25px rgba(243, 156, 18, 0.6);
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px 0;
+    animation: timerPulse 2s infinite;
+}
+
+@keyframes timerPulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.02); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.time-remaining {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.timer-small {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent-color); 
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+}
+
+.image-wrapper-premium {
+    position: relative;
+    max-width: 380px;
+    margin: 0 auto 35px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    border: 3px solid rgba(255,255,255,0.05);
+}
+
+#compMysteryImage {
+    width: 100%;
+    display: block;
+    transition: filter 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.guess-form-premium {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.guess-form-premium input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.guess-form-premium input:focus {
+    border-color: var(--secondary-color);
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.btn-gold {
+    background: linear-gradient(45deg, var(--warning-color), #e67e22);
+    color: #fff;
+    border: none;
+    padding: 18px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(230, 126, 34, 0.5);
+}
+
+/* ستايلات الفوز والاحتفال */
+.celebration {
+    padding: 20px;
+}
+
+.confetti {
+    font-size: 3.5rem;
+    color: var(--success-color);
+    text-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
+    margin-bottom: 20px;
+}
+
+.winner-product-img {
+    width: 280px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    border: 4px solid var(--success-color);
+    box-shadow: 0 0 30px rgba(39, 174, 96, 0.3);
+}
+
+.btn-whatsapp {
+    display: inline-block;
+    background: #25D366;
+    color: #fff;
+    padding: 18px 35px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-top: 20px;
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(37, 211, 102, 0.5);
+}
+
+.winner-action-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px dashed rgba(255,255,255,0.2);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 400px;
+}
+.winner-action-box p { color: #ccc; margin-bottom: 10px; font-size: 0.9rem;}
+
+.public-winner-info {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 450px;
+}
+
+.winner-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--secondary-color);
+    object-fit: cover;
+}
+
+.winner-product-img-small {
+    width: 150px;
+    border-radius: 10px;
+    opacity: 0.8;
+}
+
+.gold-text {
+    color: var(--warning-color);
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+}
+
+/* ===========================
    Products Section
    =========================== */
 .products-section {
@@ -157,6 +412,7 @@ body {
     height: 250px;
     object-fit: cover;
     background-color: #f0f0f0;
+    cursor: pointer; 
 }
 
 .product-info {
@@ -415,6 +671,14 @@ body {
     font-weight: 600;
 }
 
+#competitionAdminForm label {
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+    color: #2c3e50;
+}
+
 /* ===========================
    Footer
    =========================== */
@@ -466,22 +730,18 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .product-info h3, 
-    .product-info p {
-        white-space: normal !important;
-        overflow-wrap: break-word !important;
-        word-wrap: break-word !important;
-        max-width: 100%;
-    }
-
     .admin-content {
         margin: 20px;
         padding: 20px;
     }
 
-    .nav {
-        flex-direction: column;
-        gap: 10px;
+    /* تحسينات الموبايل الخاصة بالمسابقة */
+    .timer-premium { font-size: 3rem; }
+    .comp-title { font-size: 1.8rem; }
+    .comp-premium-box { padding: 25px 15px; }
+    .public-winner-info { 
+        flex-direction: column; 
+        text-align: center; 
     }
 }
 
@@ -492,9 +752,57 @@ body {
     display: none !important;
 }
 
-.loading {
-    opacity: 0.6;
-    pointer-events: none;
+/* ===========================
+   Image Modal & Zoom
+   =========================== */
+.image-modal {
+    display: none; 
+    position: fixed; 
+    z-index: 4000; 
+    padding-top: 50px; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.9);
+    overflow: hidden;
+}
+
+.modal-content {
+    margin: auto; 
+    display: block; 
+    max-width: 90%; 
+    max-height: 80vh;
+    transition: transform 0.2s ease; 
+    cursor: grab;
+}
+
+.modal-content:active {
+    cursor: grabbing;
+}
+
+.close-modal {
+    position: absolute; 
+    top: 15px; 
+    right: 35px; 
+    color: #f1f1f1; 
+    font-size: 40px; 
+    font-weight: bold; 
+    cursor: pointer;
+    z-index: 4001;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+#compTimeUp p {
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    line-height: 1.8;
 }
 
 
