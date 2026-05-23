@@ -15,24 +15,89 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3246385159373257"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3246385159373257" crossorigin="anonymous"></script>
 </head>
 <body>
 
-
     <section class="hero">
         <div class="container hero-layout">
-            
             <div class="hero-image">
                 <img src="WhatsApp Image 2026-01-30 at 2.56.31 PM.jpeg" alt="شعار سوق الجمعة"> 
             </div>
-
             <div class="hero-text">
                 <h2>سوق الجمعة أون لاين</h2>
-                <p>متدفعش أرقام خيالية في الجديد.. القديم سدّاد وشيك</p>
+                <p>المنتج مش هيعجبكو بس كفايه انو من مستعملينجو</p>
             </div>
+        </div>
+    </section>
 
+    <section class="competition-section" id="competitionSection" style="display: none;">
+        <div class="container">
+            <div class="comp-premium-box">
+                <div class="comp-header">
+                    <h2 class="comp-title">🎁 لغز الصورة الغامضة 🎁</h2>
+                    <p class="comp-desc">خمن صح، واكسب المنتج فوراً قبل ما الوقت يخلص!</p>
+                </div>
+                
+                <div id="compPreStart" class="comp-state" style="display: none;">
+                    <h3 class="glow-text">المسابقة هتبدأ بعد:</h3>
+                    <div id="compTimerStart" class="timer-premium">00:00:00</div>
+                </div>
+
+                <div id="compActive" class="comp-state" style="display: none;">
+                    <div class="time-remaining">
+                        <span>ينتهي اللغز بعد:</span>
+                        <div id="compTimerEnd" class="timer-small">00:00:00</div>
+                    </div>
+
+                    <div class="image-wrapper-premium">
+                        <img id="compMysteryImage" src="" oncontextmenu="return false;" draggable="false">
+                    </div>
+                    
+                    <form id="guessForm" class="guess-form-premium">
+                        <input type="text" id="guessFullName" placeholder="اسمك ثلاثي"  required>
+                        <input type="text" id="guessValue" placeholder="توقعك اسم المنتج" required>
+                        <button type="submit" class="btn btn-gold">أرسل التوقع</button>
+                    </form>
+                </div>
+
+                <div id="compTimeUp" class="comp-state" style="display: none;">
+                    <h3 style="color: #e74c3c;">انتهى الوقت! ⏳</h3>
+                    <p>للأسف لم يتمكن أحد من حل اللغز هذه المرة، انتظرونا في اللغز القادم.</p>
+                </div>
+
+                <div id="compWinnerOnly" class="comp-state celebration" style="display: none;">
+                    <div class="confetti">🎉 مبروك أنت الفائز 🎉</div>
+                    <img id="winnerProductImg" src="" class="winner-product-img">
+                    <h3>لقد فزت بالمنتج: <span id="winnerProductNameOnly" class="gold-text"></span></h3>
+                    
+                    <div class="winner-action-box">
+                        <p>عشان صورتك تنور في الموقع كفائز، ارفع صورتك الشخصية:</p>
+                        <form id="winnerPhotoForm">
+                            <input type="file" id="winnerPhotoFile" accept="image/*" required>
+                            <button type="submit" class="btn btn-primary btn-sm">رفع الصورة</button>
+                        </form>
+                    </div>
+
+                    <a href="https://wa.me/201000000000" target="_blank" class="btn btn-whatsapp">
+                        📱 تواصل واتساب لأستلام المنتج
+                    </a>
+                </div>
+
+                <div id="compPublicWinner" class="comp-state" style="display: none;">
+                    <h3 style="color: #2ecc71;">تم حل اللغز! 🔒</h3>
+                    <div class="public-winner-info">
+                        <img id="publicWinnerAvatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="winner-avatar">
+                        <div>
+                            <p>بطل اللغز: <span id="publicWinnerName" class="gold-text"></span></p>
+                            <p>المنتج: <span id="publicWinnerGuess"></span></p>
+                        </div>
+                    </div>
+                    <img id="publicProductImg" src="" class="winner-product-img-small">
+                    <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">حظ أوفر للجميع في المسابقة القادمة!</p>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -45,34 +110,12 @@
         </div>
     </section>
 
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <h2 class="section-title">تواصل معنا</h2>
-            
-            <form class="contact-form" id="contactForm">
-                <div class="form-group">
-                    <label>الاسم</label>
-                    <input type="text" id="contactName" required placeholder="اكتب اسمك">
-                </div>
-                <div class="form-group">
-                    <label>البريد الإلكتروني أو رقم الهاتف</label>
-                    <input type="text" id="contactEmail" required placeholder="رقم تليفونك أو إيميلك">
-                </div>
-                <div class="form-group">
-                    <label>الرسالة</label>
-                    <textarea id="contactMessage" rows="5" required placeholder="اكتب رسالتك هنا..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">إرسال الرسالة</button>
-            </form>
-            
-            <div class="form-message" id="formMessage"></div>
-        </div>
-    </section>
+
 
     <footer class="footer">
         <div class="container">
             <p>&copy; Mosta3malingo. All rights reserved.</p>
-            <p id="footerDate" style="margin-top: 10px; opacity: 0.3; font-size: 0.8rem; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">2026</p>
+            <p id="footerDate" style="margin-top: 10px; opacity: 0.3; font-size: 0.8rem; cursor: pointer; user-select: none;">2026</p>
         </div>
     </footer>
 
@@ -83,20 +126,46 @@
             
             <div id="adminLogin">
                 <form id="adminLoginForm">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="adminEmail" required placeholder="admin@shop.com">
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="adminPassword" required>
-                    </div>
+                    <div class="form-group"><label>Email</label><input type="email" id="adminEmail" required></div>
+                    <div class="form-group"><label>Password</label><input type="password" id="adminPassword" required></div>
                     <button type="submit" class="btn btn-primary">Login</button>
-                    <div class="admin-error" id="loginError"></div>
                 </form>
             </div>
 
             <div id="adminDashboard" style="display: none;">
+                
+                <div class="admin-card" style="border-color: #f1c40f;">
+                    <h3 style="color: #f1c40f; border-bottom: 2px solid #f1c40f; padding-bottom: 10px;">🏆 إعدادات مسابقة الصورة الغامضة</h3>
+                    <form id="competitionAdminForm">
+                        <div style="display: flex; gap: 10px;">
+                            <div style="flex: 1;"><label>موعد البدء:</label><input type="datetime-local" id="compStartTimeAdmin" required></div>
+                            <div style="flex: 1;"><label>موعد الإنتهاء:</label><input type="datetime-local" id="compEndTimeAdmin" required></div>
+                        </div>
+                        
+                        <label>الأسماء الصحيحة (افصل بينها بفاصلة ،):</label>
+                        <textarea id="compValidNamesAdmin" rows="2" placeholder="مثال: ايفون 13, iphone 13" required></textarea>
+                        
+                        <div style="display: flex; gap: 10px;">
+                            <div style="flex: 1;"><label>قوة البلور في البداية (بيكسل):</label><input type="number" id="compInitialBlurAdmin" value="50" required></div>
+                            <div style="flex: 1;"><label>تقليل البلور كل كام دقيقة؟:</label><input type="number" id="compBlurIntervalAdmin" value="30" required></div>
+                            <div style="flex: 1;"><label>مقدار التقليل (بيكسل):</label><input type="number" id="compBlurDropAdmin" value="5" required></div>
+                        </div>
+
+                        <label>صورة المنتج الهدية:</label>
+                        <input type="file" id="compImageFileAdmin" accept="image/*">
+                        
+                        <div style="text-align: center; margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ccc;">
+                            <p style="font-size: 0.9rem; font-weight: bold; margin-bottom: 10px;">معاينة الصورة كما ستظهر للزوار في البداية:</p>
+                            <img id="adminImagePreview" src="" style="max-width: 100%; height: 200px; object-fit: contain; border-radius: 10px; display: none; background: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                        </div>
+                        
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1; background-color: #f1c40f; color:#000;">إطلاق المسابقة 🚀</button>
+                            <button type="button" class="btn btn-danger" id="stopCompBtn" style="flex: 1; margin-top: 0;">إيقاف المسابقة</button>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="admin-card">
                     <h3>Add Product</h3>
                     <form id="addProductForm">
@@ -108,7 +177,6 @@
                         <button type="submit" class="btn btn-primary" style="margin-top:10px;">إضافة المنتج</button>
                     </form>
                 </div>
-
                 <div class="admin-card">
                     <h3>Manage Products</h3>
                     <div id="adminProductsList"></div>
@@ -116,6 +184,11 @@
                 <button class="btn btn-danger" id="adminLogout">Logout</button>
             </div>
         </div>
+    </div>
+
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
     </div>
 
     <script src="script.js"></script>
