@@ -125,29 +125,12 @@ function setupCompetitionListener() {
         }
 
         compSection.style.display = 'block';
-        document.querySelectorAll('.comp-state').forEach(el => el.style.display = 'none');
-
-        if (data.winnerName) {
-            if(competitionInterval) clearInterval(competitionInterval);
-            
-            if(data.winnerUID === myUserId) {
-                document.getElementById('compWinnerOnly').style.display = 'block';
-                document.getElementById('winnerProductImg').src = data.image;
-                document.getElementById('winnerProductNameOnly').textContent = data.winnerGuess;
-                if(data.winnerImage) document.querySelector('.winner-action-box').style.display = 'none';
-            } else {
-                document.getElementById('compPublicWinner').style.display = 'block';
-                document.getElementById('publicWinnerName').textContent = data.winnerName;
-                document.getElementById('publicWinnerGuess').textContent = data.winnerGuess;
-                document.getElementById('publicProductImg').src = data.image;
-                if(data.winnerImage) document.getElementById('publicWinnerAvatar').src = data.winnerImage;
-            }
-        } else {
-            document.getElementById('compMysteryImage').src = data.image;
-            if(competitionInterval) clearInterval(competitionInterval);
-            competitionInterval = setInterval(() => updateCompetitionUI(data), 1000);
-            updateCompetitionUI(data); 
-        }
+        document.getElementById('compMysteryImage').src = data.image; // إظهار الصورة في كل الحالات
+        
+        // تشغيل العداد وتحديث الشاشة بناءً على الوقت
+        if(competitionInterval) clearInterval(competitionInterval);
+        competitionInterval = setInterval(() => updateCompetitionUI(data), 1000);
+        updateCompetitionUI(data); 
     });
 }
 
@@ -159,10 +142,12 @@ function updateCompetitionUI(data) {
     document.querySelectorAll('.comp-state').forEach(el => el.style.display = 'none');
 
     if (now < start) {
+        // قبل البداية
         document.getElementById('compPreStart').style.display = 'block';
         document.getElementById('compTimerStart').textContent = formatTimeDiff(start - now);
     } 
     else if (now >= start && now < end) {
+        // وقت اللعب الفعلي (إخفاء النتيجة حتى لو شخص جاوب صح في الخلفية)
         document.getElementById('compActive').style.display = 'block';
         document.getElementById('compTimerEnd').textContent = formatTimeDiff(end - now);
 
@@ -177,8 +162,26 @@ function updateCompetitionUI(data) {
         document.getElementById('compMysteryImage').style.filter = `blur(${currentBlur}px)`;
     } 
     else if (now >= end) {
-        document.getElementById('compTimeUp').style.display = 'block';
+        // انتهى الوقت! الآن نظهر النتائج
         if(competitionInterval) clearInterval(competitionInterval);
+        
+        if (data.winnerName) {
+            if(data.winnerUID === myUserId) {
+                document.getElementById('compWinnerOnly').style.display = 'block';
+                document.getElementById('winnerProductImg').src = data.image;
+                document.getElementById('winnerProductNameOnly').textContent = data.winnerGuess;
+                if(data.winnerImage) document.querySelector('.winner-action-box').style.display = 'none';
+            } else {
+                document.getElementById('compPublicWinner').style.display = 'block';
+                document.getElementById('publicWinnerName').textContent = data.winnerName;
+                document.getElementById('publicWinnerGuess').textContent = data.winnerGuess;
+                document.getElementById('publicProductImg').src = data.image;
+                if(data.winnerImage) document.getElementById('publicWinnerAvatar').src = data.winnerImage;
+            }
+        } else {
+            // محدش كسب
+            document.getElementById('compTimeUp').style.display = 'block';
+        }
     }
 }
 
@@ -391,10 +394,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if(confirm('إيقاف المسابقة؟')) db.collection("settings").doc("competition").update({ active: false }).then(() => alert('تم الإيقاف'));
     };
 
-    // مستخدم: إرسال التخمين مع نظام الانتظار 15 دقيقة
+// مستخدم: إرسال التخمين (تسجيل صامت ورسالة موحدة للجميع)
     document.getElementById('guessForm').onsubmit = (e) => {
         e.preventDefault();
-        if (!AppState.currentCompData || AppState.currentCompData.winnerName) return;
+        if (!AppState.currentCompData) return;
 
         const lastGuessTime = localStorage.getItem('most3malinjo_last_guess_time');
         const cooldownMs = 15 * 60 * 1000; 
@@ -405,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const timeLeft = cooldownMs - timePassed;
                 const minutesLeft = Math.floor(timeLeft / (60 * 1000));
                 const secondsLeft = Math.floor((timeLeft % (60 * 1000)) / 1000);
-                alert(`⏳ عذراً! يجب الانتظار ${minutesLeft} دقيقة و ${secondsLeft} ثانية قبل المحاولة مرة أخرى.`);
+                alert(`لقد قمت بإرسال إجابة بالفعل ⏳! يرجى الانتظار ${minutesLeft} دقيقة و ${secondsLeft} ثانية قبل إرسال تخمين آخر.`);
                 return;
             }
         }
@@ -416,17 +419,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let isCorrect = validArr.some(valid => guessValue.includes(valid.toLowerCase()) || valid.toLowerCase().includes(guessValue));
 
+        // التحقق في الخلفية بدون علم المستخدم
         if (isCorrect) {
-            db.collection("settings").doc("competition").update({
-                winnerName: guessName,
-                winnerGuess: guessValue,
-                winnerUID: myUserId 
-            });
-            localStorage.removeItem('most3malinjo_last_guess_time');
-        } else {
-            localStorage.setItem('most3malinjo_last_guess_time', Date.now());
-            alert("إجابة خاطئة 😔.. تم قفل محاولاتك لـ 15 دقيقة لتوفير الفرص للآخرين، راقب الصورة جنداً وحاول لاحقاً!");
+            // لو الإجابة صح ومحدش كسب قبله، نسجله في صمت كفائز
+            if (!AppState.currentCompData.winnerName) {
+                db.collection("settings").doc("competition").update({
+                    winnerName: guessName,
+                    winnerGuess: guessValue,
+                    winnerUID: myUserId 
+                });
+            }
         }
+
+        // --- الإجراء الموحد للجميع (صح أو خطأ) ---
+        
+        // 1. تفعيل الحظر لـ 15 دقيقة لمنع الإسبام والمحاولات العشوائية
+        localStorage.setItem('most3malinjo_last_guess_time', Date.now());
+        
+        // 2. تفريغ الحقول لإعطاء إحساس بإتمام الإرسال
+        document.getElementById('guessForm').reset();
+        
+        // 3. إظهار الرسالة الموحدة
+        alert("تم إرسال إجابتك بنجاح! سيتم إعلان النتيجة فور انتهاء العداد ⏳");
     };
 
     // فائز: رفع الصورة الشخصية وضغطها بشدة لتوفير المساحة
@@ -444,36 +458,60 @@ document.addEventListener('DOMContentLoaded', () => {
             }).catch(err => { alert("حدث خطأ في الرفع"); btn.textContent = "رفع الصورة"; btn.disabled = false; });
     };
 
-    // نموذج تواصل معنا
-    document.getElementById('contactForm').onsubmit = (e) => {
-        e.preventDefault();
-        db.collection("messages").add({
-            name: document.getElementById('contactName').value, contact: document.getElementById('contactEmail').value,
-            message: document.getElementById('contactMessage').value, timestamp: Date.now()
-        }).then(() => {
-            const msgDiv = document.getElementById('formMessage');
-            msgDiv.textContent = 'تم الإرسال بنجاح!'; msgDiv.className = 'form-message success';
-            document.getElementById('contactForm').reset(); setTimeout(() => msgDiv.style.display='none', 5000);
-        });
-    };
+    // نموذج تواصل معنا (متأمن عشان ميوقفش باقي الأكواد لو مش موجود في الـ HTML)
+    const contactFormEl = document.getElementById('contactForm');
+    if (contactFormEl) {
+        contactFormEl.onsubmit = (e) => {
+            e.preventDefault();
+            db.collection("messages").add({
+                name: document.getElementById('contactName').value, contact: document.getElementById('contactEmail').value,
+                message: document.getElementById('contactMessage').value, timestamp: Date.now()
+            }).then(() => {
+                const msgDiv = document.getElementById('formMessage');
+                if(msgDiv) { msgDiv.textContent = 'تم الإرسال بنجاح!'; msgDiv.className = 'form-message success'; }
+                contactFormEl.reset(); 
+                if(msgDiv) setTimeout(() => msgDiv.style.display='none', 5000);
+            });
+        };
+    }
 
     // نافذة عرض وتكبير الصور (Zoom)
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
     let currentZoom = 1;
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('product-image')) { modal.style.display = "block"; modalImg.src = e.target.src; currentZoom = 1; modalImg.style.transform = `scale(1)`; }
-        if (e.target.classList.contains('close-modal') || e.target.classList.contains('image-modal')) modal.style.display = "none";
-    });
-    if(modalImg) {
+
+    if (modal && modalImg) {
+        document.addEventListener('click', (e) => {
+            // لو الزائر داس على أي صورة في الموقع (ما عدا اللغز والمودال)
+            if (e.target.tagName === 'IMG' && 
+                e.target.id !== 'compMysteryImage' && 
+                e.target.id !== 'modalImage' && 
+                e.target.id !== 'adminImagePreview') { 
+                
+                e.preventDefault(); 
+                modal.style.display = "block"; 
+                modalImg.src = e.target.src; 
+                currentZoom = 1; 
+                modalImg.style.transform = `scale(1)`; 
+            }
+            
+            // قفل النافذة لو داس على علامة X أو داس برة الصورة
+            if (e.target.classList.contains('close-modal') || e.target.classList.contains('image-modal')) {
+                modal.style.display = "none";
+            }
+        });
+
+        // تشغيل الزووم ببكرة الماوس جوه النافذة
         modalImg.addEventListener('wheel', (e) => {
             e.preventDefault(); 
             currentZoom += e.deltaY < 0 ? 0.1 : -0.1;
-            if(currentZoom < 0.5) currentZoom = 0.5; if(currentZoom > 5) currentZoom = 5;
+            if(currentZoom < 0.5) currentZoom = 0.5; 
+            if(currentZoom > 5) currentZoom = 5;
             modalImg.style.transform = `scale(${currentZoom})`;
         });
     }
-});
+
+}); // دي قفلة الـ DOMContentLoaded الأساسية
 
 
 
