@@ -804,5 +804,25 @@ body {
     margin-top: 10px;
     line-height: 1.8;
 }
+/* إصلاح ألوان نصوص شاشة الفائز للجمهور */
+#compPublicWinner p {
+    color: #ffffff; /* لون أبيض ناصع لجملة حظ أوفر */
+}
+
+.public-winner-info p {
+    color: #e0e0e0; /* لون أبيض مريح للعين لجملة بطل اللغز والمنتج */
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+/* تغيير شكل الماوس لعلامة الزووم على كل الصور ما عدا اللغز والمودال */
+img:not(#compMysteryImage):not(#modalImage):not(#adminImagePreview) {
+    cursor: zoom-in !important;
+}
+
+/* التأكيد على إن صورة اللغز غير قابلة للضغط */
+#compMysteryImage {
+    cursor: default !important;
+    pointer-events: none; /* بيمنع أي تفاعل بالماوس معاها تماماً */
+}
 
 
