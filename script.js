@@ -394,23 +394,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if(confirm('إيقاف المسابقة؟')) db.collection("settings").doc("competition").update({ active: false }).then(() => alert('تم الإيقاف'));
     };
 
-// مستخدم: إرسال التخمين (تسجيل صامت ورسالة موحدة للجميع)
+// مستخدم: إرسال التخمين (محاولة واحدة فقط لكل مسابقة)
     document.getElementById('guessForm').onsubmit = (e) => {
         e.preventDefault();
         if (!AppState.currentCompData) return;
 
-        const lastGuessTime = localStorage.getItem('most3malinjo_last_guess_time');
-        const cooldownMs = 15 * 60 * 1000; 
+        // بنعمل مفتاح سري في المتصفح مربوط بوقت المسابقة دي تحديداً
+        // عشان لما تعمل مسابقة جديدة، المفتاح يتغير والناس تقدر تشارك تاني
+        const compId = AppState.currentCompData.startTime; 
+        const guessStorageKey = 'most3malinjo_guessed_' + compId;
 
-        if (lastGuessTime) {
-            const timePassed = Date.now() - parseInt(lastGuessTime);
-            if (timePassed < cooldownMs) {
-                const timeLeft = cooldownMs - timePassed;
-                const minutesLeft = Math.floor(timeLeft / (60 * 1000));
-                const secondsLeft = Math.floor((timeLeft % (60 * 1000)) / 1000);
-                alert(`لقد قمت بإرسال إجابة بالفعل ⏳! يرجى الانتظار ${minutesLeft} دقيقة و ${secondsLeft} ثانية قبل إرسال تخمين آخر.`);
-                return;
-            }
+        // بنتحقق: هل الزائر ده استهلك محاولته في المسابقة دي؟
+        if (localStorage.getItem(guessStorageKey)) {
+            alert("لقد استنفدت محاولتك الوحيدة 🚨! لا يمكنك التخمين مرة أخرى، انتظر إعلان النتيجة.");
+            return;
         }
 
         const guessName = document.getElementById('guessFullName').value.trim();
@@ -433,10 +430,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- الإجراء الموحد للجميع (صح أو خطأ) ---
         
-        // 1. تفعيل الحظر لـ 15 دقيقة لمنع الإسبام والمحاولات العشوائية
-        localStorage.setItem('most3malinjo_last_guess_time', Date.now());
+        // 1. تسجيل إن الزائر استهلك محاولته للأبد في هذه المسابقة
+        localStorage.setItem(guessStorageKey, 'true');
         
-        // 2. تفريغ الحقول لإعطاء إحساس بإتمام الإرسال
+        // 2. تفريغ الحقول
         document.getElementById('guessForm').reset();
         
         // 3. إظهار الرسالة الموحدة
@@ -511,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-}); // دي قفلة الـ DOMContentLoaded الأساسية
+}); // دي قفلة الـ DOMContentLoaded الأساسيةالأساسية
 
 
 
