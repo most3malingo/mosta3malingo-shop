@@ -1,0 +1,810 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+
+/* ===========================
+   Global Styles & Reset
+   =========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --text-color: #333;
+    --light-bg: #f8f9fa;
+    --border-color: #ddd;
+    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===========================
+   Header
+   =========================== */
+.header {
+    background-color: var(--primary-color);
+    padding: 20px 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.nav a:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* ===========================
+   Hero Section
+   =========================== */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 60px 0;
+}
+
+.hero-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 40px 0;
+}
+
+.hero-text {
+    flex: 1;
+    text-align: right;
+    padding-left: 20px;
+}
+
+.hero-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.hero-text p {
+    font-size: 1.8rem;
+    color: #fdfdfd;
+}
+
+.hero-image {
+    flex: 1;
+    text-align: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* ===========================
+   Premium Competition Section (ستايل الحماس الاحترافي النيون)
+   =========================== */
+.competition-section {
+    padding: 60px 0;
+    /* تدريج لوني يجمع بين أزرق الموقع والأسود */
+    background: linear-gradient(135deg, #1a252f 0%, #0a0f14 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* تأثير إضاءة خلفي خفي لزيادة الجمالية */
+.competition-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(52, 152, 219, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.comp-premium-box {
+    background: rgba(44, 62, 80, 0.4); 
+    border: 2px solid var(--secondary-color); 
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(52, 152, 219, 0.2);
+    max-width: 750px;
+    margin: 0 auto;
+    position: relative;
+    backdrop-filter: blur(15px);
+}
+
+.comp-header {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.comp-title {
+    color: #fff;
+    font-size: 2.6rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.comp-title span {
+    color: var(--warning-color); 
+    text-shadow: 0 0 15px rgba(243, 156, 18, 0.4);
+}
+
+.comp-desc {
+    color: #aeb9c2;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.glow-text {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.timer-premium {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--warning-color);
+    letter-spacing: 4px;
+    text-shadow: 0 0 25px rgba(243, 156, 18, 0.6);
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px 0;
+    animation: timerPulse 2s infinite;
+}
+
+@keyframes timerPulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.02); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.time-remaining {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    padding: 16px 30px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    gap: 15px;
+    margin-bottom: 30px;
+    margin-inline-end: 16px;
+}
+
+.timer-small {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+}
+
+.prize-showcase {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    gap: 10px;
+    margin: 0 auto 30px;
+    padding: 20px 30px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(241,196,15,0.25);
+}
+
+.prize-showcase-label {
+    margin: 0;
+    color: #aeb9c2;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.prize-showcase-frame {
+    width: 175px;
+    height: 175px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #0a0f14;
+    border: 3px solid #1abc9c;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    animation: prizeFloat 3.6s ease-in-out infinite;
+}
+
+@keyframes prizeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .prize-showcase-frame { animation: none; }
+}
+
+.prize-showcase-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.prize-showcase #prizeShowcaseName {
+    margin: 0;
+    color: #f1c40f;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.prize-label {
+    color: #f1c40f;
+    font-weight: 800;
+    font-size: 1.05rem;
+    margin-bottom: 14px;
+    letter-spacing: 0.3px;
+}
+
+.image-wrapper-premium {
+    position: relative;
+    max-width: 460px;
+    margin: 0 auto 35px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.65), 0 0 0 1px rgba(241,196,15,0.15);
+    border: 4px solid rgba(241,196,15,0.35);
+}
+
+#compMysteryImage {
+    width: 100%;
+    display: block;
+    transition: filter 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.guess-form-premium {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.guess-form-premium input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.guess-form-premium input:focus {
+    border-color: var(--secondary-color);
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.btn-gold {
+    background: linear-gradient(45deg, var(--warning-color), #e67e22);
+    color: #fff;
+    border: none;
+    padding: 18px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(230, 126, 34, 0.5);
+}
+
+/* ستايلات الفوز والاحتفال */
+.celebration {
+    padding: 20px;
+}
+
+.confetti {
+    font-size: 3.5rem;
+    color: var(--success-color);
+    text-shadow: 0 0 20px rgba(39, 174, 96, 0.4);
+    margin-bottom: 20px;
+    animation: confettiFloat 2.6s ease-in-out infinite;
+}
+
+@keyframes confettiFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .confetti { animation: none; }
+}
+
+.winner-product-img {
+    width: 280px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    border: 4px solid var(--success-color);
+    box-shadow: 0 0 30px rgba(39, 174, 96, 0.3);
+}
+
+.btn-whatsapp {
+    display: inline-block;
+    background: #25D366;
+    color: #fff;
+    padding: 18px 35px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-top: 20px;
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(37, 211, 102, 0.5);
+}
+
+.winner-action-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px dashed rgba(255,255,255,0.2);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 400px;
+}
+.winner-action-box p { color: #ccc; margin-bottom: 10px; font-size: 0.9rem;}
+
+.public-winner-info {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 450px;
+}
+
+.winner-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--secondary-color);
+    object-fit: cover;
+}
+
+.winner-product-img-small {
+    width: 150px;
+    border-radius: 10px;
+    opacity: 0.8;
+}
+
+.prize-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.won-product-thumb {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #1abc9c;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+}
+
+.won-product-thumb.small {
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+}
+
+#celebrationCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5000;
+}
+
+.gold-text {
+    color: #f1c40f;
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.product-highlight {
+    color: #1abc9c;
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.winner-product-name {
+    color: #f1c40f;
+    font-weight: 800;
+    font-size: 1.3rem;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+}
+
+/* ===========================
+   Products Section
+   =========================== */
+.products-section {
+    padding: 60px 0;
+    background-color: var(--light-bg);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    background-color: #f0f0f0;
+    cursor: pointer; 
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-info h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.product-description, 
+.product-info p {
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    height: auto !important;
+    max-height: none !important;
+    margin-bottom: 15px !important;
+    color: #666;
+    line-height: 1.6;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-top: 15px;
+}
+
+/* ===========================
+   Buttons
+   =========================== */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-danger {
+    background-color: var(--accent-color);
+    color: white;
+    margin-top: 20px;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* ===========================
+   Contact Section
+   =========================== */
+.contact-section {
+    padding: 60px 0;
+    background-color: white;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+.form-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+}
+
+.form-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+}
+
+.form-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: block;
+}
+
+/* ===========================
+   Footer
+   =========================== */
+.footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+}
+
+/* ===========================
+   Responsive Design
+   =========================== */
+@media (max-width: 768px) {
+    .hero-layout {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    .hero-text {
+        text-align: center;
+        padding-left: 0;
+    }
+    
+    .hero-image img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero-text h2 {
+        font-size: 2rem;
+    }
+
+    .hero-text p {
+        font-size: 1.3rem;
+    }
+
+    .product-image {
+        height: 200px !important;
+        object-fit: cover !important;
+        flex-shrink: 0;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* تحسينات الموبايل الخاصة بالمسابقة */
+    .timer-premium { font-size: 3rem; }
+    .comp-title { font-size: 1.8rem; }
+    .comp-premium-box { padding: 25px 15px; }
+    .public-winner-info { 
+        flex-direction: column; 
+        text-align: center; 
+    }
+}
+
+/* ===========================
+   Utility Classes
+   =========================== */
+.hidden {
+    display: none !important;
+}
+
+/* ===========================
+   Image Modal & Zoom
+   =========================== */
+.image-modal {
+    display: none; 
+    position: fixed; 
+    z-index: 4000; 
+    padding-top: 50px; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.9);
+    overflow: hidden;
+}
+
+.modal-content {
+    margin: auto; 
+    display: block; 
+    max-width: 90%; 
+    max-height: 80vh;
+    transition: transform 0.2s ease; 
+    cursor: grab;
+}
+
+.modal-content:active {
+    cursor: grabbing;
+}
+
+.close-modal {
+    position: absolute; 
+    top: 15px; 
+    right: 35px; 
+    color: #f1f1f1; 
+    font-size: 40px; 
+    font-weight: bold; 
+    cursor: pointer;
+    z-index: 4001;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+#compTimeUp p {
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    line-height: 1.8;
+}
+/* إصلاح ألوان نصوص شاشة الفائز للجمهور */
+#compPublicWinner p {
+    color: #ffffff; /* لون أبيض ناصع لجملة حظ أوفر */
+}
+
+.public-winner-info p {
+    color: #e0e0e0; /* لون أبيض مريح للعين لجملة بطل اللغز والمنتج */
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+/* تغيير شكل الماوس لعلامة الزووم على كل الصور ما عدا اللغز والمودال */
+img:not(#compMysteryImage):not(#modalImage) {
+    cursor: zoom-in !important;
+}
+
+/* التأكيد على إن صورة اللغز غير قابلة للضغط */
+#compMysteryImage {
+    cursor: default !important;
+    pointer-events: none; /* بيمنع أي تفاعل بالماوس معاها تماماً */
+}
+

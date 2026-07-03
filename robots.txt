@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://most3malingo.shop/sitemap.xml

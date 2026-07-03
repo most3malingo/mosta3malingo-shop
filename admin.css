@@ -1,0 +1,114 @@
+/* ===========================
+   Admin Panel (standalone page)
+   =========================== */
+body {
+    background-color: #1a252f;
+    min-height: 100vh;
+}
+
+.admin-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.admin-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.admin-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    border: 1px solid #eee;
+    transition: transform 0.2s;
+}
+
+.admin-card:hover {
+    transform: translateY(-2px);
+}
+
+.admin-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f1f1f1;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.admin-card input[type="text"],
+.admin-card input[type="number"],
+.admin-card input[type="email"],
+.admin-card input[type="password"],
+.admin-card textarea,
+.admin-card input[type="file"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.admin-card input:focus,
+.admin-card textarea:focus {
+    border-color: #007bff;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    outline: none;
+}
+
+.admin-card input[type="file"] {
+    padding: 10px;
+    background: #fff;
+    border: 1px dashed #ccc;
+    cursor: pointer;
+}
+
+.admin-card button {
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.admin-card button:hover {
+    filter: brightness(0.9);
+}
+
+.admin-error {
+    color: var(--accent-color);
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+#competitionAdminForm label {
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+    color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+    .admin-content {
+        margin: 20px;
+        padding: 20px;
+    }
+}

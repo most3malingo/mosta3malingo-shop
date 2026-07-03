@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+     <meta name="keywords" content="مستعملينجو, ادوات مستعمله ,سوق الجمعه">
+    <meta name="description" content="مستعملينجو - سوق الجمعة أونلاين لبيع وشراء المنتجات المستعملة بأسعار مناسبة، مع مسابقة أسبوعية لغز الصورة الغامضة.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosta3malingo - Shop Now</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pages.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+        emailjs.init("SV8sPPhYQ6YxCOoVGB9yN");
+    })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3246385159373257" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BEWNQG7Z5J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BEWNQG7Z5J');
+    </script>
+</head>
+<body>
+
+    <nav class="site-nav">
+        <div class="container">
+            <a href="index.html">الرئيسية</a>
+            <a href="about.html">من نحن</a>
+            <a href="contact.html">تواصل معنا</a>
+            <a href="privacy.html">سياسة الخصوصية</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container hero-layout">
+            <div class="hero-image">
+                <img src="WhatsApp Image 2026-01-30 at 2.56.31 PM.jpeg" alt="شعار سوق الجمعة"> 
+            </div>
+            <div class="hero-text">
+                <h2>سوق الجمعة أون لاين</h2>
+                <p>منتجاتنا مش ناقصها حاجه غير انها تشتغل</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="competition-section" id="competitionSection" style="display: none;">
+        <div class="container">
+            <div class="comp-premium-box">
+                <div class="comp-header">
+                    <h2 class="comp-title">لغز الصورة الغامضة</h2>
+                    <p class="comp-desc">خمن صح، واكسب المنتج فوراً قبل ما الوقت يخلص!</p>
+                </div>
+                
+                <div id="compPreStart" class="comp-state" style="display: none;">
+                    <h3 class="glow-text">المسابقة هتبدأ بعد:</h3>
+                    <div id="compTimerStart" class="timer-premium">00:00:00</div>
+                </div>
+
+                <div id="compActive" class="comp-state" style="display: none;">
+                    <div class="time-remaining">
+                        <span>ينتهي اللغز بعد:</span>
+                        <div id="compTimerEnd" class="timer-small">00:00:00</div>
+                    </div>
+
+                    <div class="prize-showcase">
+                        <p class="prize-showcase-label">الجائزة</p>
+                        <div class="prize-showcase-frame">
+                            <img id="prizeShowcaseImg" src="" alt="صورة الجائزة">
+                        </div>
+                        <p id="prizeShowcaseName" class="product-highlight"></p>
+                    </div>
+
+                    <p class="prize-label">خمن اللي في الصورة دي عشان تكسب الجايزة:</p>
+                    <div class="image-wrapper-premium">
+                        <img id="compMysteryImage" src="" oncontextmenu="return false;" draggable="false">
+                    </div>
+
+                    <form id="guessForm" class="guess-form-premium">
+                        <p style="color: #f1c40f; font-size: 0.95rem; font-weight: bold; margin-bottom: -5px;">⚠️ تنبيه: لك محاولة تخمين واحدة فقط!</p>
+
+                        <input type="text" id="guessFullName" placeholder="اسمك ثلاثي"  required>
+                        <input type="text" id="guessValue" placeholder="توقعك اسم المنتج" required>
+                        <button type="submit" class="btn btn-gold">أرسل التوقع</button>
+                    </form>
+                </div>
+
+                <div id="compTimeUp" class="comp-state" style="display: none;">
+                    <h3 style="color: #e74c3c;">انتهى الوقت! ⏳</h3>
+                    <p>للأسف لم يتمكن أحد من حل اللغز هذه المرة، انتظرونا في اللغز القادم.</p>
+                </div>
+
+                <div id="compWinnerOnly" class="comp-state celebration" style="display: none;">
+                    <div class="confetti">🎉 مبروك أنت الفائز 🎉</div>
+                    <img id="winnerProductImg" src="" class="winner-product-img">
+
+                    <h3 class="prize-name-row" style="color: #ffffff; font-size: 1.6rem; font-weight: 800;">
+                        لقد فزت بالمنتج: <span id="winnerProductNameOnly" class="winner-product-name"></span>
+                        <img id="winnerWonProductImg" src="" class="won-product-thumb" alt="">
+                    </h3>
+                    
+                    <div class="winner-action-box">
+                        <p>عشان صورتك تنور في الموقع كفائز، ارفع صورتك الشخصية:</p>
+                        <form id="winnerPhotoForm">
+                            <input type="file" id="winnerPhotoFile" accept="image/*" required>
+                            <button type="submit" class="btn btn-primary btn-sm">رفع الصورة</button>
+                        </form>
+                    </div>
+
+                    <div id="winnerPhotoUploaded" style="display:none;">
+                        <p style="color:#2ecc71; font-weight:bold;">✅ تم رفع صورتك بنجاح، وهتظهر لكل الزوار:</p>
+                        <img id="winnerOwnPhoto" src="" class="winner-avatar">
+                    </div>
+
+                    <a href="https://wa.me/201554491840?text=" target="_blank" class="btn btn-whatsapp">
+                        📱 تواصل واتساب لأستلام المنتج
+                    </a>
+                </div>
+
+                <div id="compPublicWinner" class="comp-state" style="display: none;">
+                    <h3 style="color: #e74c3c; font-size: 1.9rem; font-weight: 800;">تم حل اللغز! 🔒</h3>
+                    <div class="public-winner-info">
+                        <img id="publicWinnerAvatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="winner-avatar">
+                        <div>
+                            <p style="color: #2ecc71; font-weight: 700;">بطل اللغز: <span id="publicWinnerName" class="gold-text"></span></p>
+                            <p class="prize-name-row" style="color: #3498db; font-weight: 700;">
+                                المنتج: <span id="publicWinnerGuess" class="product-highlight"></span>
+                                <img id="publicWonProductImg" src="" class="won-product-thumb small" alt="">
+                            </p>
+                        </div>
+                    </div>
+                    <img id="publicProductImg" src="" class="winner-product-img-small">
+
+                    <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">حظ أوفر للجميع في المسابقة القادمة!</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <canvas id="celebrationCanvas"></canvas>
+
+    <section class="products-section" id="products">
+        <div class="container">
+            <h2 class="section-title">المنتجات المتوفرة</h2>
+            <div class="products-grid" id="productsGrid">
+                <p style="text-align:center;">Loading products from cloud...</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; Mosta3malingo. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="about.html" style="color:#fff; opacity:0.7; margin: 0 8px;">من نحن</a>
+                <a href="contact.html" style="color:#fff; opacity:0.7; margin: 0 8px;">تواصل معنا</a>
+                <a href="privacy.html" style="color:#fff; opacity:0.7; margin: 0 8px;">سياسة الخصوصية</a>
+            </p>
+            <p style="margin-top: 10px; opacity: 0.3; font-size: 0.8rem;">2026</p>
+        </div>
+    </footer>
+
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
