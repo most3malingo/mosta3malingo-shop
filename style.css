@@ -451,8 +451,8 @@ body {
 }
 
 .won-product-thumb.small {
-    width: 46px;
-    height: 46px;
+    width: 62px;
+    height: 62px;
     border-radius: 8px;
 }
 
@@ -807,4 +807,5 @@ img:not(#compMysteryImage):not(#modalImage) {
     cursor: default !important;
     pointer-events: none; /* بيمنع أي تفاعل بالماوس معاها تماماً */
 }
+
 
