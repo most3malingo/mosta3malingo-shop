@@ -428,9 +428,11 @@ body {
 }
 
 .winner-product-img-small {
-    width: 150px;
+    width: 210px;
     border-radius: 10px;
     opacity: 0.8;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .prize-name-row {
@@ -807,5 +809,4 @@ img:not(#compMysteryImage):not(#modalImage) {
     cursor: default !important;
     pointer-events: none; /* بيمنع أي تفاعل بالماوس معاها تماماً */
 }
-
 
